@@ -1,13 +1,33 @@
 package yp.fin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Main {
 
     public static void main(String[] args) {
-//        double[] expenses = new double[7];
-        ArrayList<Double> expenses = new ArrayList<>(6);
+        HashMap<String, ArrayList<Double>> category = new HashMap<>();
+        ArrayList<Double> supermarket = new ArrayList<>();
+        ArrayList<Double> movie = new ArrayList<>();
+        ArrayList<Double> coffee = new ArrayList<>();
+        category.put("Супермаркет", supermarket);
+        category.put("Кино", movie);
+        category.put("Кафе", coffee);
+        for (int i = 0; i < 7; i++) {
+            supermarket.add(0.0);
+            movie.add(0.0);
+            coffee.add(0.0);
+        }
+        System.out.println(movie);
+
+
+
+        ArrayList<Double> expenses = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            expenses.add(0.0);
+        }
 
         double rateUSD = 78.5;
         double rateEUR = 85;
@@ -70,25 +90,33 @@ public class Main {
             } else if (command == 3) {
                 System.out.println("За какой день вы хотите ввести трату: 1-ПН, 2-ВТ, 3-СР, 4-ЧТ, 5-ПТ, 6-СБ, 7-ВС?");
                 int day = scanner.nextInt();
+                System.out.println("В какой категории трата: 1 - супермаркет, 2 - кино, 3- кафе");
+                int userCategory = scanner.nextInt();
                 System.out.println("Введите размер траты:");
-                double expense = scanner.nextDouble();
+                Double expense = scanner.nextDouble();
                 moneyBeforeSalary = moneyBeforeSalary - expense;
-                expenses.add((day - 1), expense); //добавил значение в список
-//                expenses[day - 1] = expenses[day - 1] + expense;
+                if (userCategory == 1) {
+                    supermarket.set((day - 1), supermarket.get(day - 1) + expense);
+                } else if (userCategory == 2) {
+                    movie.set((day - 1), movie.get(day - 1) + expense);
+                } else if (userCategory == 3) {
+                    coffee.set((day - 1), coffee.get(day - 1) + expense);
+                }
+
+//                expenses.add((day - 1), expense); //добавил значение в список
                 System.out.println("Значение сохранено! Ваш текущий баланс в рублях: " + moneyBeforeSalary);
                 if (moneyBeforeSalary < 1000) {
                     System.out.println("На вашем счету осталось совсем немного. Стоит начать экономить!");
                 }
             } else if (command == 4) {
-                for (Double exp : expenses) {
-                    int i = 1;
-                    System.out.println("День " + (i + 1) + ". Потрачено " + exp + " рублей");
-//                    i++;
+                for (int i = 0; i < supermarket.size()-1; i++) {
+                    System.out.println("День " + (i + 1));
+                    for (String catName : category.keySet()){
+                        System.out.println("__Категория " + catName +": " + category.get(catName).get(i));
+                    }
                 }
-//                for (int i = 0; i < expenses.length; i++) {
-//                    System.out.println("День " + (i + 1) + ". Потрачено " + expenses[i] + " рублей");
-//                }
-            } else if (command == 5) {
+            }
+            else if (command == 5) {
                 /* Объявляем переменную maxExpense для хранения самой большой суммы расходов.
                    Сначала её значение неизвестно, поэтому равно нулю */
                 double maxExpense = 0;
