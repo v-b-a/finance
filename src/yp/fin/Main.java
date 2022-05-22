@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 //        double[] expenses = new double[7];
-        ArrayList<Double> expenses = new ArrayList<>();
+        ArrayList<Double> expenses = new ArrayList<>(6);
 
         double rateUSD = 78.5;
         double rateEUR = 85;
@@ -73,7 +73,7 @@ public class Main {
                 System.out.println("Введите размер траты:");
                 double expense = scanner.nextDouble();
                 moneyBeforeSalary = moneyBeforeSalary - expense;
-                expenses.add((day - 1), (day - 1) + expense); //добавил значение в список
+                expenses.add((day - 1), expense); //добавил значение в список
 //                expenses[day - 1] = expenses[day - 1] + expense;
                 System.out.println("Значение сохранено! Ваш текущий баланс в рублях: " + moneyBeforeSalary);
                 if (moneyBeforeSalary < 1000) {
@@ -83,7 +83,7 @@ public class Main {
                 for (Double exp : expenses) {
                     int i = 1;
                     System.out.println("День " + (i + 1) + ". Потрачено " + exp + " рублей");
-                    i++;
+//                    i++;
                 }
 //                for (int i = 0; i < expenses.length; i++) {
 //                    System.out.println("День " + (i + 1) + ". Потрачено " + expenses[i] + " рублей");
